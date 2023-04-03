@@ -1,13 +1,10 @@
 import axios from "axios";
 
-const server = "https://localhost:44375";
+const server = "https://localhost:7183";
 
 const http = axios.create({
     baseURL: `${server}/api`,
 });
-// const http = axios.create({
-//   baseURL: "https://localhost:44375/api",
-// });
 
 // http.interceptors.response.use(
 //     (fulFilled) => {

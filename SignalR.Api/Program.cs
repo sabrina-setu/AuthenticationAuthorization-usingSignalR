@@ -53,12 +53,24 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddAplicationDependencies();
 builder.Services.AddInfrastructureDependencies(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ClientPermission", policy =>
+    {
+        policy.AllowAnyHeader()
+            .AllowAnyMethod()
+            .WithOrigins("http://localhost:3000") 
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("ClientPermission");
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseAuthentication();
